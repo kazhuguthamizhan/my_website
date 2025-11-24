@@ -1,7 +1,7 @@
 // Import Firebase functions
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA9X09L-Aaexf5_7ARYunCevhW_x7OHfbM",
@@ -15,6 +15,38 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth();
+const db = getFirestore();
 
-console.log("Firebase initialized successfully!");
+// ------------------------
+// Registration
+// ------------------------
+export async function registerUser(email, password, name) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        // Save extra info in Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            email: email,
+            signupDate: new Date()
+        });
+        alert("Registration successful! Please login.");
+        window.location.href = "login.html";
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// ------------------------
+// Login
+// ------------------------
+export async function loginUser(email, password) {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful!");
+        window.location.href = "index.html";
+    } catch (error) {
+        alert(error.message);
+    }
+}
