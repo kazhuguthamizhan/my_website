@@ -1,0 +1,36 @@
+name: Firebase Hosting Merge
+
+on:
+  push:
+    branches:
+      - main  # deploy when main branch is updated
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # or your version
+
+      # Install dependencies (optional, if you have package.json)
+      - name: Install npm packages
+        run: npm install
+
+      # Build step (optional, remove if no build)
+      - name: Run build
+        run: npm run build || echo "No build script, skipping"
+
+      # Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_MY_WEBSITE_E26F1 }}"
+          channelId: live
+          projectId: my-website-e26f1
