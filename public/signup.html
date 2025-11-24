@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Caring Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background SVG decoration -->
+    <svg class="background-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="400" cy="200" r="200" fill="#ffb3c6" opacity="0.3"/>
+        <circle cx="150" cy="600" r="150" fill="#b3e0ff" opacity="0.4"/>
+        <circle cx="650" cy="650" r="180" fill="#c2f0c2" opacity="0.35"/>
+    </svg>
+
+    <div class="container">
+        <h1>Create Account</h1>
+        <input type="text" id="name" placeholder="Your Name"><br><br>
+        <input type="email" id="email" placeholder="Email"><br><br>
+        <input type="password" id="password" placeholder="Password"><br><br>
+        <button class="btn" id="signupBtn">Signup</button>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script type="module">
+        import { registerUser } from './app.js';
+        document.getElementById('signupBtn').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            registerUser(email, password, name);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caring Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background SVG decoration -->
+    <svg class="background-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="400" cy="200" r="200" fill="#ffb3c6" opacity="0.3"/>
+        <circle cx="150" cy="600" r="150" fill="#b3e0ff" opacity="0.4"/>
+        <circle cx="650" cy="650" r="180" fill="#c2f0c2" opacity="0.35"/>
+    </svg>
+
+    <div class="container">
+        <h1>Welcome to a Caring Space</h1>
+        <p>This is a warm and colorful homepage made with love ♥</p>
+        <button class="btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <script type="module" src="app.js"></script>
+    <script type="module">
+        import { logoutUser, requireAuth } from './app.js';
+        requireAuth(); // Make sure only logged-in users can see this page
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            logoutUser();
+        });
+    </script>
+</body>
+</html>
